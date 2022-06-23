@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        告诉Spring创建对象，声明bean，就是告诉Spring要创建某个类的对象。
+        id：对象的自定义名称，唯一值。Spring通过这个名称找到对象。
+        class：类的全限定名称（不能是接口，因为Spring是反射机制创建对象，必须使用类）
+
+        Spring就完成 BabyService babyService = new BabyServiceImpl();
+        Spring是把创建好的对象放到map中，Spring框架有一个map存放对象的。
+            springMap.put(id的值, 对象);
+            例如：springMap.put("babyService", new BabyServiceImpl());
+
+        一个bean标签声明一个对象，想要另一个对象需要再声明一个bean标签：id="babyService2"
+    -->
+    <bean id="babyService1" class="com.bjpowernode.service.impl.BabyServiceImpl"/>
+    <bean id="babyService2" class="com.bjpowernode.service.impl.BabyServiceImpl" scope="prototype"/>
+    <!--
+        在<bean>标签中，加上scope属性来控制对象在容器中的数量。
+
+        1、scope = singleton 单例模式，对象在容器中全局唯一，在IOC容器初始化的时候该对象就会被创建。
+        2、scope = prototype 多例模式，在每一次调用getBean的时候IOC容器才会创建该对象的实体，并且每次创建都是不同的对象。
+
+    -->
+    <!--
+        Spring能创建一个非自定义类的对象
+    -->
+    <bean id="myDate" class="java.util.Date"/>
+</beans>
+<!--
+    Spring的配置文件
+        1、beans：是根标签，Spring中把java对象称为bean。
+        2、spring-beans.xsd 是约束文件，和mybatis指定dtd是一样的。
+-->
